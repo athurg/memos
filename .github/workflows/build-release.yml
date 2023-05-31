@@ -22,5 +22,5 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name:  ${{ github.event.release.tag_name || "0.13.0" }}
+        tag_name:  ${{ github.event.release.tag_name }}
         files: release..tbz2
