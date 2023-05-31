@@ -43,8 +43,11 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           
-      - name: Debug
-        run: "ls -al"
+      - name: Upload Release Assets
+        uses: AButler/upload-release-assets@v2.0
+        with:
+          files: "/usr/local/memos/memos"
+          release-tag: "v4"
 
       - name: Debug
         run: "tree ."
