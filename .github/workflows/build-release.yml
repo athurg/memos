@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Extract assets from Docker Image
         id: extract
-        uses: shrink/action-docker-extract@v2
+        uses: shrink/actions-docker-extract@v2
         with:
           image: usememos/memos:${{ github.release.tag_name }}
           path: "/usr/local/memos/memos"
