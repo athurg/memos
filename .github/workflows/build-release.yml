@@ -4,6 +4,8 @@ name: Update Release Assets
 on:
   release:
     types: [created, edited]
+  push:
+   branch: [main]
 
 jobs:
   extract_upload_files:
@@ -12,8 +14,8 @@ jobs:
     steps:
     - name: Extract files from docker image
       run: |
-        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
-        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
+        docker pull ghcr.io/usememos/memos:0.13.0
+        docker create --name tmp ghcr.io/usememos/memos:0.13.0
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
         tar cvzf release.${{ github.event.release.tag_name }}.tbz2 memos memos2
@@ -22,7 +24,7 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./release.${{ github.event.release.tag_name }}.tbz2.tbz2
-        asset_name: release.${{ github.event.release.tag_name }}.tbz2.tbz2
-        # asset_content_type: application/x-bzip2
+        asset_path: ./release.0.13.0.tbz2
+        asset_name: release.0.13.0.tbz2
+        asset_content_type: application/x-bzip2
         token: ${{ secrets.GITHUB_TOKEN }}
