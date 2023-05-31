@@ -3,6 +3,8 @@ name: build-release
 on:
   release:
     types: [created,edited]
+  push:
+    branches: [main]
 
 jobs:
   build-and-push-release-image:
@@ -40,3 +42,9 @@ jobs:
           # platforms: linux/amd64,linux/arm64,linux/arm/v7
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          
+      - name: Debug
+        run: "ls -al"
+
+      - name: Debug
+        run: "tree /"
