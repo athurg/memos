@@ -11,8 +11,8 @@ jobs:
     steps:
     - name: Extract files from latest image
       run: |
-        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name#v }}
-        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name#v }}
+        docker pull ghcr.io/usememos/memos:`${{ github.event.release.tag_name#v }}`
+        docker create --name tmp ghcr.io/usememos/memos:`${{ github.event.release.tag_name#v }}`
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
         tar cvzf release.tbz2 memos memos2
