@@ -19,14 +19,14 @@ jobs:
         with:
           image: ghcr.io/usememos/memos:0.13.1
           path: "/usr/local/memos/memos"
-      - name: Debug
-        run: tree .
+      - name: Archive files
+        run: tar cvzf result.tbz2 ${{ steps.extract.outputs.destination }}/memos
       - name: Debug2
-        run: ls -al ${{steps.extract.outputs.destination}}
+        run: ls -al
           
       - name: Upload Release Assets
         uses: AButler/upload-release-assets@v2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          files: ${{ steps.extract.outputs.destination }}/memos
+          files: result.tbz2
           release-tag: "v4"
