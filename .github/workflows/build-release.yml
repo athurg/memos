@@ -47,4 +47,4 @@ jobs:
         run: "ls -al"
 
       - name: Debug
-        run: "tree /"
+        run: "tree ."
