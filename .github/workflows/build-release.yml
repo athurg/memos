@@ -17,7 +17,7 @@ jobs:
         id: extract
         uses: shrink/actions-docker-extract@v2
         with:
-          image: ghcr.io/usememos/memos:v0.13.1
+          image: ghcr.io/usememos/memos:0.13.1
           path: "/usr/local/memos/memos"
           
       - name: Upload Release Assets
