@@ -21,7 +21,7 @@ jobs:
     - name: Get Version for branch
       if: startsWith(github.ref, 'refs/branch')
       env:
-        VERSION: latest
+        VERSION: "latest"
     - name: Get Version for release
       if: !startsWith(github.ref, 'refs/branch')
       env:
