@@ -17,6 +17,12 @@ jobs:
         with:
           image: usememos/memos:${{ github.release.tag_name }}
           path: "/usr/local/memos/memos"
+      - name: Debug Tag Name
+        run: echo ${{ github.release.tag_name }}
+      - name: Debug Name
+        run: echo ${{ github.release.name }}}}
+      - name: Debug release
+        run: echo ${{ github.release }}
           
       - name: Upload Release Assets
         uses: AButler/upload-release-assets@v2.0
