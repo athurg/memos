@@ -28,5 +28,5 @@ jobs:
         uses: AButler/upload-release-assets@v2.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          files: ${{ steps.extract.outputs.destination }}
+          files: ${{ steps.extract.outputs.destination }}/memos
           release-tag: "v4"
