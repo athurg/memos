@@ -10,22 +10,21 @@ on:
 jobs:
   extract_upload_files:
     runs-on: ubuntu-latest
-    #
     steps:
-    - name: "Debug"
-      runs: echo $VERSION
     
     - name: "Debug"
-      runs: echo ${{ github.ref }}
+      run: echo ${{ github.ref }}
 
+    - name: Get Version for release
+      env:
+        VERSION: ${{ github.event.release.tag_name }}
     - name: Get Version for branch
       if: startsWith(github.ref, 'refs/branch')
       env:
         VERSION: "latest"
-    - name: Get Version for release
-      if: !startsWith(github.ref, 'refs/branch')
-      env:
-        VERSION: ${{ github.event.release.tag_name }}
+
+    - name: "Debug"
+      run: echo $VERSION
     - name: Extract files from docker image
       run: |
         docker pull ghcr.io/usememos/memos:${{ env.VERSION }}
