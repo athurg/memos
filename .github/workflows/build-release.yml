@@ -5,17 +5,31 @@ on:
   release:
     types: [created, edited]
   push:
-    branch: [main]
+    branches: [main]
 
 jobs:
   extract_upload_files:
     runs-on: ubuntu-latest
     #
     steps:
+    - name: "Debug"
+      runs: echo $VERSION
+    
+    - name: "Debug"
+      runs: echo ${{ github.ref }}
+
+    - name: Get Version for branch
+      if: startsWith(github.ref, 'refs/branch')
+      env:
+        VERSION: latest
+    - name: Get Version for release
+      if: !startsWith(github.ref, 'refs/branch')
+      env:
+        VERSION: ${{ github.event.release.tag_name }}
     - name: Extract files from docker image
       run: |
-        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name || "latest" }}
-        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name || "latest"}}
+        docker pull ghcr.io/usememos/memos:${{ env.VERSION }}
+        docker create --name tmp ghcr.io/usememos/memos:${{ env.VERSION }}
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
         tar cvzf release.tbz2 memos memos2
