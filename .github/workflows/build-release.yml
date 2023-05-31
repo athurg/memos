@@ -4,31 +4,15 @@ name: Update Release Assets
 on:
   release:
     types: [created, edited]
-  push:
-    branches: [main]
 
 jobs:
   extract_upload_files:
     runs-on: ubuntu-latest
     steps:
-    
-    - name: "Debug"
-      run: echo ${{ github.ref }}
-
-    - name: Get Version for release
-      env:
-        VERSION: ${{ github.event.release.tag_name }}
-    - name: Get Version for branch
-      if: startsWith(github.ref, 'refs/branch')
-      env:
-        VERSION: "latest"
-
-    - name: "Debug"
-      run: echo $VERSION
-    - name: Extract files from docker image
+    - name: Extract files from latest image
       run: |
-        docker pull ghcr.io/usememos/memos:${{ env.VERSION }}
-        docker create --name tmp ghcr.io/usememos/memos:${{ env.VERSION }}
+        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
+        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
         tar cvzf release.tbz2 memos memos2
