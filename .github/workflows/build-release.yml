@@ -19,6 +19,10 @@ jobs:
         with:
           image: ghcr.io/usememos/memos:0.13.1
           path: "/usr/local/memos/memos"
+      - name: Debug
+        run: tree .
+      - name: Debug2
+        run: ls -al ${{steps.extract.outputs.destination}}
           
       - name: Upload Release Assets
         uses: AButler/upload-release-assets@v2.0
