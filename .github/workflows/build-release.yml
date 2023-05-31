@@ -10,7 +10,7 @@ on:
 jobs:
   extract_upload_files:
     runs-on: ubuntu-latest
-
+    #${{ github.event.release.tag_name }}
     steps:
     - name: Extract files from docker image
       run: |
@@ -18,7 +18,7 @@ jobs:
         docker create --name tmp ghcr.io/usememos/memos:0.13.0
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
-        tar cvzf release.${{ github.event.release.tag_name }}.tbz2 memos memos2
+        tar cvzf release.0.13.0.tbz2 memos memos2
 
     - name: Upload extracted files to release assets
       uses: softprops/action-gh-release@v1
