@@ -4,8 +4,6 @@ name: Update Release Assets
 on:
   release:
     types: [created, edited]
-  push:
-    branches: [main]
 
 jobs:
   extract_upload_files:
@@ -29,4 +27,4 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name:  ${{ github.event.release.tag_name }}
-        files: release..tbz2
+        files: release.tbz2
