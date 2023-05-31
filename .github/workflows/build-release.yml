@@ -3,8 +3,6 @@ name: build-release
 on:
   release:
     types: [created,edited]
-  push:
-    branches: [main]
 
 jobs:
   build-and-push-release-image:
@@ -13,41 +11,15 @@ jobs:
       contents: read
       packages: write
     steps:
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Docker meta
-        id: meta
-        uses: docker/metadata-action@v4
+      - name: Extract assets from Docker Image
+        id: extract
+        uses: shrink/action-docker-extract@v2
         with:
-          images: |
-            neosmemo/memos
-            ghcr.io/usememos/memos
-          tags: |
-            type=raw,value=latest
-            type=semver,pattern={{version}},value=${{ env.VERSION }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ env.VERSION }}
-            type=semver,pattern={{major}},value=${{ env.VERSION }}
-
-      - name: Build and Push
-        id: docker_build
-        uses: docker/build-push-action@v3
-        with:
-          outputs: type=local,dest=output
-          # context: ./
-          #file: ./Dockerfile
-          # platforms: linux/amd64,linux/arm64,linux/arm/v7
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+          image: usememos/memos:${{ github.release.tag_name }}
+          path: "/usr/local/memos/memos"
           
       - name: Upload Release Assets
         uses: AButler/upload-release-assets@v2.0
         with:
-          files: "/usr/local/memos/memos"
+          files: ${{ steps.extract.outputs.destination }}
           release-tag: "v4"
-
-      - name: Debug
-        run: "tree ."
