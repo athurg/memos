@@ -21,12 +21,8 @@ jobs:
         tar cvzf release.${{ github.event.release.tag_name }}.tbz2 memos memos2
 
     - name: Upload extracted files to release assets
-      uses: actions/upload-release-asset@v1
+      uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./release.0.13.0.tbz2
-        asset_name: release.0.13.0.tbz2
-        asset_content_type: application/x-bzip2
-        token: ${{ secrets.GITHUB_TOKEN }}
+        files: release.0.13.0.tbz2
