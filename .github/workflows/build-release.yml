@@ -1,33 +1,28 @@
-name: build-release
+name: Update Release Assets
 
+# 触发条件
 on:
   release:
-    types: [created,edited]
-  push:
-    branches: [main]
-permissions: write-all
-  
+    types: [created, edited]
+
 jobs:
-  build-and-push-release-image:
+  extract_upload_files:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+
     steps:
-      - name: Extract assets from Docker Image
-        id: extract
-        uses: shrink/actions-docker-extract@v2
-        with:
-          image: ghcr.io/usememos/memos:0.13.1
-          path: "/usr/local/memos/memos"
-      - name: Archive files
-        run: tar cvzf result.tbz2 ${{ steps.extract.outputs.destination }}/memos
-      - name: Debug2
-        run: ls -al
-          
-      - name: Upload Release Assets
-        uses: AButler/upload-release-assets@v2.0
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          files: result.tbz2
-          release-tag: "v4"
+    - name: Extract files from docker image
+      run: |
+        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
+        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name }}
+        docker cp tmp:/usr/local/memos/memos memos
+        docker cp tmp:/usr/local/memos/memos memos2
+        tar cvzf release.${{ github.event.release.tag_name }}.tbz2 memos memos2
+
+    - name: Upload extracted files to release assets
+      uses: actions/upload-release-asset@v1
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./release.${{ github.event.release.tag_name }}.tbz2.tbz2
+        asset_name: release.${{ github.event.release.tag_name }}.tbz2.tbz2
+        # asset_content_type: application/x-bzip2
+        token: ${{ secrets.GITHUB_TOKEN }}
