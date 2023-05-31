@@ -5,8 +5,7 @@ on:
     types: [created,edited]
   push:
     branches: [main]
-permissions:
-  contents: write
+permissions: write-all
   
 jobs:
   build-and-push-release-image:
