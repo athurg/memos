@@ -5,25 +5,25 @@ on:
   release:
     types: [created, edited]
   push:
-   branch: [main]
+    branch: [main]
 
 jobs:
   extract_upload_files:
     runs-on: ubuntu-latest
-    #${{ github.event.release.tag_name }}
+    #
     steps:
     - name: Extract files from docker image
       run: |
-        docker pull ghcr.io/usememos/memos:0.13.0
-        docker create --name tmp ghcr.io/usememos/memos:0.13.0
+        docker pull ghcr.io/usememos/memos:${{ github.event.release.tag_name || "latest" }}
+        docker create --name tmp ghcr.io/usememos/memos:${{ github.event.release.tag_name || "latest"}}
         docker cp tmp:/usr/local/memos/memos memos
         docker cp tmp:/usr/local/memos/memos memos2
-        tar cvzf release.0.13.0.tbz2 memos memos2
+        tar cvzf release.tbz2 memos memos2
 
     - name: Upload extracted files to release assets
       uses: softprops/action-gh-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: 0.13.0
-        files: release.0.13.0.tbz2
+        tag_name:  ${{ github.event.release.tag_name || "0.13.0" }}
+        files: release..tbz2
