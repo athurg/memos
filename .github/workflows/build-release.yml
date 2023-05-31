@@ -3,6 +3,8 @@ name: build-release
 on:
   release:
     types: [created,edited]
+  push:
+    branches: [main]
 
 jobs:
   build-and-push-release-image:
