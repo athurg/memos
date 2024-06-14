@@ -1,6 +1,8 @@
-# 1.Prepare your workspace by:
-#     docker compose run api go install github.com/cosmtrek/air@latest
-#     docker compose run web npm install
+# 0. (Optional) Set docker-compose.dev.yaml as default:
+#     echo 'COMPOSE_FILE=docker-compose.dev.yaml' >> .env
+#
+# 1. Prepare your workspace by:
+#     docker compose run --rm web npm install
 #
 # 2. Start you work by:
 #     docker compose up -d
@@ -10,12 +12,14 @@
 #
 services:
   api:
-    image: golang:1.19.3-alpine3.16
+    image: cosmtrek/air:v1.52.2
     working_dir: /work
-    command: air -c ./scripts/.air.toml
+    command: -c ./scripts/.air.toml
     volumes:
       - .:/work/
-      - ./.air/go/:/go/ # Cache for go mod database
+      - ./data/gocache/:/root/.cache/go-build/ #Go build cache
+      - ./data/gomod/:/go/pkg/mod/ #Go mod cache
+
   web:
     image: node:18.12.1-alpine3.16
     working_dir: /work
@@ -25,4 +29,4 @@ services:
     command: npm run dev
     volumes:
       - ./web:/work
-      - ./.air/node_modules/:/work/node_modules/ # Cache for Node Modules
+      - ./data/node_modules/:/work/node_modules/ # Cache for Node Modules
