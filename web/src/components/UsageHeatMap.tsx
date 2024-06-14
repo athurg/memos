@@ -34,7 +34,7 @@ const UsageHeatMap = () => {
   const userStore = useUserStore();
   const memoStore = useMemoStore();
   const todayTimeStamp = getDateStampByDate(Date.now());
-  const todayDay = new Date(todayTimeStamp).getDay() + 1;
+  const todayDay = new Date(todayTimeStamp).getDay() || 6;
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
   const beginDayTimestamp = todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP;
@@ -151,13 +151,13 @@ const UsageHeatMap = () => {
           ))}
         </div>
         <div className="day-tip-text-container">
+          <span className="tip-text">{t("days.mon")}</span>
+          <span className="tip-text"></span>
+          <span className="tip-text">{t("days.wed")}</span>
+          <span className="tip-text"></span>
+          <span className="tip-text">{t("days.fri")}</span>
+          <span className="tip-text"></span>
           <span className="tip-text">{t("days.sun")}</span>
-          <span className="tip-text"></span>
-          <span className="tip-text">{t("days.tue")}</span>
-          <span className="tip-text"></span>
-          <span className="tip-text">{t("days.thu")}</span>
-          <span className="tip-text"></span>
-          <span className="tip-text">{t("days.sat")}</span>
         </div>
       </div>
       <p className="w-full pl-4 text-xs -mt-2 mb-3 text-gray-400 dark:text-zinc-400">
