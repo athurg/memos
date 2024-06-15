@@ -21,7 +21,7 @@ services:
       - ./.air/gomod/:/go/pkg/mod/ #Go mod cache
 
   web:
-    image: node:18.12.1-alpine3.16
+    image: node:22.3.0-alpine
     working_dir: /work
     depends_on: ["api"]
     ports: ["3001:3001"]
