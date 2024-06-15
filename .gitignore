@@ -16,3 +16,6 @@ build
 .idea
 
 bin/air
+
+# Docker compose env file for development
+/.env
