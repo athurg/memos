@@ -2,7 +2,7 @@ name: build-and-push-test-image
 
 on:
   push:
-    branches: [main]
+    branches: '**'
 
 jobs:
   build-and-push-test-image:
@@ -39,7 +39,7 @@ jobs:
           flavor: |
             latest=false
           tags: |
-            type=raw,value=test
+            type=ref,event=branch
 
       - name: Build and Push
         id: docker_build
