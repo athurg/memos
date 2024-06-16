@@ -34,7 +34,7 @@ const UsageHeatMap = () => {
   const userStore = useUserStore();
   const memoStore = useMemoStore();
   const todayTimeStamp = getDateStampByDate(Date.now());
-  const todayDay = new Date(todayTimeStamp).getDay() || 6;
+  const todayDay = new Date(todayTimeStamp).getDay() || 7;
   const nullCell = new Array(7 - todayDay).fill(0);
   const usedDaysAmount = (tableConfig.width - 1) * tableConfig.height + todayDay;
   const beginDayTimestamp = todayTimeStamp - usedDaysAmount * DAILY_TIMESTAMP;
