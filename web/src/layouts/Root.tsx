@@ -3,7 +3,6 @@ import Header from "@/components/Header";
 import DemoBanner from "@/components/DemoBanner";
 import { useGlobalStore } from "@/store/module";
 
-
 function Root() {
   const globalStore = useGlobalStore();
 
@@ -18,11 +17,11 @@ function Root() {
           <Outlet />
         </main>
       </div>
-	  { globalStore.state.systemStatus.icpCode != "" &&
-	  <p className="m-auto text-center mt-4 italic cursor-pointer text-gray-500 text-xs hover:text-green-600">
-		<a href="http://beian.miit.gov.cn">{ globalStore.state.systemStatus.icpCode }</a>
-	  </p>
-	  }
+      {globalStore.state.systemStatus.icpCode != "" && (
+        <p className="m-auto text-center mt-4 italic cursor-pointer text-gray-500 text-xs hover:text-green-600">
+          <a href="http://beian.miit.gov.cn">{globalStore.state.systemStatus.icpCode}</a>
+        </p>
+      )}
     </div>
   );
 }

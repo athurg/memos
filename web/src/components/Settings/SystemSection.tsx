@@ -148,7 +148,6 @@ const SystemSection = () => {
     toast.success(t("message.succeed-update-icp-code"));
   };
 
-
   const handleSaveAdditionalScript = async () => {
     try {
       await api.upsertSystemSetting({

@@ -13,7 +13,7 @@ export const initialGlobalState = async () => {
       allowSignUp: false,
       disablePublicMemos: false,
       maxUploadSizeMiB: 0,
-	  icpCode: "",
+      icpCode: "",
       additionalStyle: "",
       additionalScript: "",
       memoDisplayWithUpdatedTs: false,
