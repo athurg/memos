@@ -25,6 +25,7 @@ interface SystemStatus {
   allowSignUp: boolean;
   disablePublicMemos: boolean;
   maxUploadSizeMiB: number;
+  icpCode: string;
   additionalStyle: string;
   additionalScript: string;
   customizedProfile: CustomizedProfile;

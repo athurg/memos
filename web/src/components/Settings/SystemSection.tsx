@@ -13,6 +13,7 @@ interface State {
   dbSize: number;
   allowSignUp: boolean;
   disablePublicMemos: boolean;
+  icpCode: string;
   additionalStyle: string;
   additionalScript: string;
   maxUploadSizeMiB: number;
@@ -26,6 +27,7 @@ const SystemSection = () => {
   const [state, setState] = useState<State>({
     dbSize: systemStatus.dbSize,
     allowSignUp: systemStatus.allowSignUp,
+    icpCode: systemStatus.icpCode,
     additionalStyle: systemStatus.additionalStyle,
     additionalScript: systemStatus.additionalScript,
     disablePublicMemos: systemStatus.disablePublicMemos,
@@ -52,6 +54,7 @@ const SystemSection = () => {
       ...state,
       dbSize: systemStatus.dbSize,
       allowSignUp: systemStatus.allowSignUp,
+      icpCode: systemStatus.icpCode,
       additionalStyle: systemStatus.additionalStyle,
       additionalScript: systemStatus.additionalScript,
       disablePublicMemos: systemStatus.disablePublicMemos,
@@ -132,6 +135,20 @@ const SystemSection = () => {
     });
   };
 
+  const handleSaveIcpCode = async () => {
+    try {
+      await api.upsertSystemSetting({
+        name: "icp-code",
+        value: JSON.stringify(state.icpCode),
+      });
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+    toast.success(t("message.succeed-update-icp-code"));
+  };
+
+
   const handleSaveAdditionalScript = async () => {
     try {
       await api.upsertSystemSetting({
@@ -143,6 +160,13 @@ const SystemSection = () => {
       return;
     }
     toast.success(t("message.succeed-update-additional-script"));
+  };
+
+  const handleIcpCodeChanged = (value: string) => {
+    setState({
+      ...state,
+      icpCode: value,
+    });
   };
 
   const handleDisablePublicMemosChanged = async (value: boolean) => {
@@ -258,6 +282,25 @@ const SystemSection = () => {
         placeholder={t("setting.system-section.telegram-bot-token-placeholder")}
         value={telegramBotToken}
         onChange={(event) => handleTelegramBotTokenChanged(event.target.value)}
+      />
+      <Divider className="!mt-3 !my-4" />
+      <div className="form-label">
+        <div className="flex flex-row items-center">
+          <div className="w-auto flex items-center">
+            <span className="text-sm mr-1">{t("setting.system-section.icp-code")}</span>
+          </div>
+        </div>
+        <Button onClick={handleSaveIcpCode}>{t("common.save")}</Button>
+      </div>
+      <Input
+        className="w-full"
+        sx={{
+          fontFamily: "monospace",
+          fontSize: "14px",
+        }}
+        placeholder={t("setting.system-section.icp-code-placeholder")}
+        value={state.icpCode}
+        onChange={(event) => handleIcpCodeChanged(event.target.value)}
       />
       <Divider className="!mt-3 !my-4" />
       <div className="form-label">

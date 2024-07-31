@@ -44,6 +44,7 @@ func (s *Server) registerSystemRoutes(g *echo.Group) {
 			AllowSignUp:        false,
 			DisablePublicMemos: false,
 			MaxUploadSizeMiB:   32,
+			IcpCode:            "",
 			AdditionalStyle:    "",
 			AdditionalScript:   "",
 			CustomizedProfile: api.CustomizedProfile{
@@ -84,6 +85,8 @@ func (s *Server) registerSystemRoutes(g *echo.Group) {
 				systemStatus.MaxUploadSizeMiB = int(baseValue.(float64))
 			case api.SystemSettingAdditionalStyleName:
 				systemStatus.AdditionalStyle = baseValue.(string)
+			case api.SystemSettingIcpCodeName:
+				systemStatus.IcpCode = baseValue.(string)
 			case api.SystemSettingAdditionalScriptName:
 				systemStatus.AdditionalScript = baseValue.(string)
 			case api.SystemSettingCustomizedProfileName:

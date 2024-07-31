@@ -234,6 +234,7 @@
     "succeed-copy-content": "复制内容到剪贴板成功。",
     "succeed-copy-link": "复制链接到剪贴板成功。",
     "succeed-copy-resource-link": "复制资源链接到剪贴板成功",
+    "succeed-update-icp-code": "更新备案号成功",
     "succeed-update-additional-script": "更新附加脚本成功",
     "succeed-update-additional-style": "更新附加样式成功",
     "succeed-update-customized-profile": "更新自定义配置文件成功",
@@ -396,6 +397,8 @@
     },
     "system": "系统",
     "system-section": {
+      "icp-code": "ICP 备案号",
+      "icp-code-placeholder": "萌ICP备123456780-1号",
       "additional-script": "自定义脚本",
       "additional-script-placeholder": "自定义 JavaScript 代码",
       "additional-style": "自定义样式",

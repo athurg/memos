@@ -21,6 +21,8 @@ const (
 	SystemSettingDisablePublicMemosName SystemSettingName = "disable-public-memos"
 	// SystemSettingMaxUploadSizeMiBName is the name of max upload size setting.
 	SystemSettingMaxUploadSizeMiBName SystemSettingName = "max-upload-size-mib"
+	// SystemSettingIcpCodeName is the name of ICP Code.
+	SystemSettingIcpCodeName SystemSettingName = "icp-code"
 	// SystemSettingAdditionalStyleName is the name of additional style.
 	SystemSettingAdditionalStyleName SystemSettingName = "additional-style"
 	// SystemSettingAdditionalScriptName is the name of additional script.
@@ -126,6 +128,11 @@ func (upsert SystemSettingUpsert) Validate() error {
 			return fmt.Errorf(systemSettingUnmarshalError, settingName)
 		}
 	case SystemSettingAdditionalStyleName:
+		var value string
+		if err := json.Unmarshal([]byte(upsert.Value), &value); err != nil {
+			return fmt.Errorf(systemSettingUnmarshalError, settingName)
+		}
+	case SystemSettingIcpCodeName:
 		var value string
 		if err := json.Unmarshal([]byte(upsert.Value), &value); err != nil {
 			return fmt.Errorf(systemSettingUnmarshalError, settingName)

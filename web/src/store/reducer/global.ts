@@ -20,6 +20,7 @@ const globalSlice = createSlice({
       dbSize: 0,
       allowSignUp: false,
       disablePublicMemos: false,
+      icpCode: "",
       additionalStyle: "",
       additionalScript: "",
       memoDisplayWithUpdatedTs: false,
