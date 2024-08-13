@@ -21,8 +21,8 @@ const (
 	// RefreshTokenAudienceName is the audience name of the refresh token.
 	RefreshTokenAudienceName = "user.refresh-token"
 	apiTokenDuration         = 2 * time.Hour
-	accessTokenDuration      = 24 * time.Hour
-	refreshTokenDuration     = 7 * 24 * time.Hour
+	accessTokenDuration      = 7 * 24 * time.Hour
+	refreshTokenDuration     = 10 * 24 * time.Hour
 	// RefreshThresholdDuration is the threshold duration for refreshing token.
 	RefreshThresholdDuration = 1 * time.Hour
 
