@@ -40,7 +40,7 @@ const MemoResourceListView: React.FC<Props> = (props: Props) => {
     <>
       <div className={`resource-wrapper ${className || ""}`}>
         {availableResourceList.length > 0 && (
-          <div className="images-wrapper">
+          <div className={`images-wrapper ${availableResourceList.length==4 && "!grid-cols-2"}`}>
             {availableResourceList.map((resource) => {
               const url = getResourceUrl(resource);
               if (resource.type.startsWith("image")) {
